@@ -29,7 +29,7 @@ class MyGame(arcade.Window):
 
     def setup(self):
         """Create character sprite."""
-        self.player_sprite = MainCharacter(50, 50)
+        self.player_sprite = MainCharacter(190, 217)
 
         self.player_list = arcade.SpriteList()
         self.player_list.append(self.player_sprite)
@@ -61,8 +61,7 @@ class MyGame(arcade.Window):
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
         """Called whenever the mouse moves."""
-        self.player_sprite.center_x = x
-        self.player_sprite.center_y = y
+        pass
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         """Called when the user presses a mouse button."""
