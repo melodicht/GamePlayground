@@ -3,6 +3,9 @@
 """
 import arcade
 
+from MainCharacter import MainCharacter
+
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Starting Template"
@@ -26,12 +29,7 @@ class MyGame(arcade.Window):
 
     def setup(self):
         """Create character sprite."""
-        self.player_sprite = arcade.Sprite(
-            "resources/images/main_character.png"
-        )
-
-        self.player_sprite.center_x = 50
-        self.player_sprite.center_y = 50
+        self.player_sprite = MainCharacter(50, 50)
 
         self.player_list = arcade.SpriteList()
         self.player_list.append(self.player_sprite)
@@ -47,7 +45,7 @@ class MyGame(arcade.Window):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
-        pass
+        self.player_list.update_animation()
 
     def on_key_press(self, key, key_modifiers):
         """Called whenever a key on the keyboard is pressed.

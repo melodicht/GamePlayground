@@ -6,7 +6,18 @@ class MainCharacter(arcade.AnimatedTimeSprite):
     velocity_y = 0
 
     def __init__(self, center_x, center_y):
-        super.__init__(center_x=center_x, center_y=center_y)
+        super().__init__(center_x=center_x, center_y=center_y)
+
+        # Create sprite animation
+        for i in range(7):
+            texture = arcade.load_texture(
+                "resources/images/running_man.png",
+                x=i*128,
+                y=0,
+                width=128,
+                height=128
+            )
+            self.textures.append(texture)
 
     def update(self, dt=0):
         # If the character dies
