@@ -46,6 +46,7 @@ class MyGame(arcade.Window):
         need it.
         """
         self.player_list.update_animation()
+        self.player_sprite.update()
 
     def on_key_press(self, key, key_modifiers):
         """Called whenever a key on the keyboard is pressed.
@@ -57,7 +58,8 @@ class MyGame(arcade.Window):
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever the user lets off a previously pressed key."""
-        pass
+        if key == 32:  # If the player hits 'SPACE'
+            self.player_sprite.jump()
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
         """Called whenever the mouse moves."""
