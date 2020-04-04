@@ -48,9 +48,10 @@ class MyGame(arcade.Window):
             )
             self.ground_list.append(self.ground_sprite)
 
-        self.player_sprite.ground_list = self.ground_list
-
         self.obstacle_manager = ObstacleManager(SCREEN_WIDTH)
+
+        self.player_sprite.ground_list = self.ground_list
+        self.player_sprite.obstacle_list = self.obstacle_manager.obstacle_list
 
     def on_draw(self):
         """Render the screen."""

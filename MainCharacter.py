@@ -7,6 +7,7 @@ class MainCharacter(arcade.AnimatedTimeSprite):
     is_floored = True
     is_dead = False
     ground_list = []
+    obstacle_list = []
 
     def __init__(self, center_x, center_y):
         super().__init__(center_x=center_x, center_y=center_y)
@@ -28,11 +29,14 @@ class MainCharacter(arcade.AnimatedTimeSprite):
             # TODO: Falls back animation, sfx, fx (smoke?)
             pass
 
+        # Deals with jumping physics
         self.check_is_floored()
-
         if not self.is_floored:
             self.velocity_y -= self.gravity
             self.center_y += self.velocity_y
+
+        # Deals with player colliding with obstacles
+        self.check_death()
 
     def check_is_floored(self):
         # If colliding with ground, true, else, false.
@@ -47,7 +51,13 @@ class MainCharacter(arcade.AnimatedTimeSprite):
 
     def check_death(self):
         # If collide with another object
-        self.is_dead = True
+        hit = arcade.check_for_collision_with_list(
+            self, self.obstacle_list
+        )
+
+        if any(hit):
+            # Death animation, sfx, fx, stop game
+            self.is_dead = True
 
     def jump(self):
         # Jump animation, sfx and fx
