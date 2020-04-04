@@ -6,6 +6,7 @@ class MainCharacter(arcade.AnimatedTimeSprite):
     velocity_y = 0
     is_floored = True
     is_dead = False
+    ground_list = []
 
     def __init__(self, center_x, center_y):
         super().__init__(center_x=center_x, center_y=center_y)
@@ -21,23 +22,26 @@ class MainCharacter(arcade.AnimatedTimeSprite):
             )
             self.textures.append(texture)
 
-    def update(self, dt=0, ground_level=100):
+    def update(self, dt=0):
         # If the character dies
         if self.is_dead:
             # TODO: Falls back animation, sfx, fx (smoke?)
             pass
 
-        self.check_is_floored(ground_level)
+        self.check_is_floored()
 
         if not self.is_floored:
             self.velocity_y -= self.gravity
             self.center_y += self.velocity_y
 
-    def check_is_floored(self, ground_level):
+    def check_is_floored(self):
         # If colliding with ground, true, else, false.
         # If false to true, sfx and fx, maybe sprite reaction?
-        if self.center_y < ground_level:
-            self.center_y = ground_level
+        hit = arcade.check_for_collision_with_list(
+            self, self.ground_list
+        )
+
+        if not self.is_floored and any(hit):
             self.velocity_y = 0
             self.is_floored = True
 
@@ -47,5 +51,6 @@ class MainCharacter(arcade.AnimatedTimeSprite):
 
     def jump(self):
         # Jump animation, sfx and fx
+        self.center_y += 10  # So it won't collide with the ground
         self.velocity_y = 10
         self.is_floored = False

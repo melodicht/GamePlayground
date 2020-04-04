@@ -47,6 +47,8 @@ class MyGame(arcade.Window):
             )
             self.ground_list.append(self.ground_sprite)
 
+        self.player_sprite.ground_list = self.ground_list
+
     def on_draw(self):
         """Render the screen."""
         arcade.start_render()
