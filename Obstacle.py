@@ -8,5 +8,9 @@ class Obstacle(arcade.Sprite):
         super().__init__(image, center_x=center_x,
                          center_y=center_y, scale=scale)
 
-    def move_left(self):
+    def update(self):
+        # If it goes off screen, remove it
+        if self.right < 0:
+            self.kill()
+
         self.center_x -= self.speed
