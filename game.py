@@ -58,7 +58,9 @@ class MyGame(arcade.Window):
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever the user lets off a previously pressed key."""
-        if key == 32:  # If the player hits 'SPACE'
+        # If the player hits 'SPACE' while on the floor
+        jumpable = (key == 32 and self.player_sprite.is_floored)
+        if jumpable:
             self.player_sprite.jump()
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
