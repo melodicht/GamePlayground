@@ -4,6 +4,7 @@
 import arcade
 
 from MainCharacter import MainCharacter
+from Obstacle import Obstacle
 
 
 SCREEN_WIDTH = 800
@@ -49,10 +50,21 @@ class MyGame(arcade.Window):
 
         self.player_sprite.ground_list = self.ground_list
 
+        # Obstacle sprite
+        self.obstacle_list = arcade.SpriteList()
+        self.obstacle_sprite = Obstacle(
+            "resources/images/floor_block.png",
+            scale=0.3,
+            center_x=SCREEN_WIDTH + 100,
+            center_y=217
+        )
+        self.obstacle_list.append(self.obstacle_sprite)
+
     def on_draw(self):
         """Render the screen."""
         arcade.start_render()
         self.ground_list.draw()
+        self.obstacle_list.draw()
         self.player_list.draw()
 
     def on_update(self, delta_time):
@@ -63,6 +75,7 @@ class MyGame(arcade.Window):
         """
         self.player_list.update_animation()
         self.player_sprite.update()
+        self.obstacle_sprite.move_left()
 
     def on_key_press(self, key, key_modifiers):
         """Called whenever a key on the keyboard is pressed.
