@@ -28,15 +28,29 @@ class MyGame(arcade.Window):
         # and set them to None
 
     def setup(self):
-        """Create character sprite."""
+        """Create sprites."""
+        # Character sprite
         self.player_sprite = MainCharacter(190, 217)
 
         self.player_list = arcade.SpriteList()
         self.player_list.append(self.player_sprite)
 
+        # Ground sprites
+        self.ground_list = arcade.SpriteList()
+        ground_width = 128
+        ground_range = SCREEN_WIDTH // ground_width + 1
+        for i in range(ground_range):
+            self.ground_sprite = arcade.Sprite(
+                "resources/images/floor_block.png",
+                center_x=i*ground_width,
+                center_y=25
+            )
+            self.ground_list.append(self.ground_sprite)
+
     def on_draw(self):
         """Render the screen."""
         arcade.start_render()
+        self.ground_list.draw()
         self.player_list.draw()
 
     def on_update(self, delta_time):
